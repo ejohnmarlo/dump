@@ -1,3 +1,7 @@
+net user admin admin@rm126
+net user student studentpass /add
+powercfg -change -standby-timeout-ac 0
+
 Write-Host "Installing vscode to all users..."
 winget uninstall vscode
 winget install vscode --source=winget --scope=machine
