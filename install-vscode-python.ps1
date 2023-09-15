@@ -1,6 +1,6 @@
 
 Write-Host "Changing admin password..."
-net user admin admin@rm126
+net user admin admin@samsung204
 
 Write-Host "Creating user student..."
 net user student studentpass /add
@@ -44,4 +44,4 @@ Set-Service -Name sshd -StartupType 'Automatic'
 
 New-NetFirewallRule -DisplayName 'Allow SSH' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 22
 
-Start-Process 'C:\pGinaSetup-3.9.9.12.exe' -Argument '/S /D=C:\Program Files\pGina.fork'
+#Start-Process 'C:\pGinaSetup-3.9.9.12.exe' -Argument '/S /D=C:\Program Files\pGina.fork'
