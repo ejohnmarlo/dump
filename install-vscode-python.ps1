@@ -36,7 +36,7 @@ icacls "C:\Program Files\Python311" /grant Users:f /t /q
 Write-Host "Downloading sample Jupyter notebook located at C:\"
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/guipsamora/pandas_exercises/master/01_Getting_%26_Knowing_Your_Data/Chipotle/Exercise_with_Solutions.ipynb -OutFile C:\test.ipynb
 
-winget install "openssh beta"
+winget install "openssh beta" --source=winget --scope=machine
 
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 Start-Service sshd
