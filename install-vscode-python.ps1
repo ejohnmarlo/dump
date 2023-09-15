@@ -5,6 +5,9 @@ net user admin admin@rm126
 Write-Host "Creating user student..."
 net user student studentpass /add
 
+Write-Host "Changing student password..."
+net user student studentpass
+
 Write-Host "Disable popup on install..."
 Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0
 
