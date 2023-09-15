@@ -1,6 +1,16 @@
+
+Write-Host "Changing admin password..."
 net user admin admin@rm126
+
+Write-Host "Creating user student..."
 net user student studentpass /add
+
+
+Write-Host "Disable sleep mode..."
 powercfg -change -standby-timeout-ac 0
+
+Write-Host "Downloading PGina to C://..."
+Invoke-WebRequest -Uri https://github.com/MutonUfoAI/pgina/releases/download/3.9.9.12/pGinaSetup-3.9.9.12.exe -OutFile C:\pGinaSetup-3.9.9.12.exe -UseBasicParsing
 
 Write-Host "Installing vscode to all users..."
 winget uninstall vscode
