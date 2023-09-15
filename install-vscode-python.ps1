@@ -5,6 +5,8 @@ net user admin admin@rm126
 Write-Host "Creating user student..."
 net user student studentpass /add
 
+Write-Host "Disable popup on install..."
+Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0
 
 Write-Host "Disable sleep mode..."
 powercfg -change -standby-timeout-ac 0
