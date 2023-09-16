@@ -23,6 +23,9 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 Write-Host "Enabling remembered argument for Upgrades on Chocolatey..."
 choco feature enable -n='useRememberedArgumentsForUpgrades'
 
+Write-Host "Allow Global confirmation when installing and updating packages..."
+choco feature enable -n=allowGlobalConfirmation
+
 Write-Host "Installing vscode to all users..."
 #winget uninstall vscode
 #winget install vscode --source=winget --scope=machine
