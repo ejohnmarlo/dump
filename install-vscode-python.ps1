@@ -17,17 +17,29 @@ powercfg -change -standby-timeout-ac 0
 Write-Host "Downloading PGina to C://..."
 Invoke-WebRequest -Uri https://github.com/MutonUfoAI/pgina/releases/download/3.9.9.12/pGinaSetup-3.9.9.12.exe -OutFile C:\pGinaSetup-3.9.9.12.exe -UseBasicParsing
 
+Write-Host "Installing Chocolatey..."
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+Write-Host "Enabling remembered argument for Upgrades on Chocolatey..."
+choco feature enable -n='useRememberedArgumentsForUpgrades'
+
 Write-Host "Installing vscode to all users..."
-winget uninstall vscode
-winget install vscode --source=winget --scope=machine
+#winget uninstall vscode
+#winget install vscode --source=winget --scope=machine
+choco uninstall vscode
+choco install vscode --params "/ALLUSERS"
 
 Write-Host "Installing Python 3.10 to all users..."
-winget uninstall Python.Python.3.10
-winget install Python.Python.3.10 --source=winget --scope=machine
+#winget uninstall Python.Python.3.10
+#winget install Python.Python.3.10 --source=winget --scope=machine
+choco uninstall Python310
+choco install Python310 --params "/ALLUSERS"
 
 Write-Host "Installing Python 3.11 to all users..."
-winget uninstall Python.Python.3.11
-winget install Python.Python.3.11 --source=winget --scope=machine
+#winget uninstall Python.Python.3.11
+#winget install Python.Python.3.11 --source=winget --scope=machine
+choco uninstall Python310
+choco install Python310 --params "/ALLUSERS"
 
 Write-Host "Changing Windows permission to allow multi-user access of Python..."
 icacls "C:\Program Files\Python310" /grant Users:f /t /q
@@ -36,7 +48,10 @@ icacls "C:\Program Files\Python311" /grant Users:f /t /q
 Write-Host "Downloading sample Jupyter notebook located at C:\"
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/guipsamora/pandas_exercises/master/01_Getting_%26_Knowing_Your_Data/Chipotle/Exercise_with_Solutions.ipynb -OutFile C:\test.ipynb
 
-winget install "openssh beta" --source=winget --scope=machine
+Write-Host "Installing OpenSSH..."
+#winget install "openssh beta" --source=winget --scope=machine
+choco uninstall openssh
+choco install openssh --params "/ALLUSERS"
 
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 Start-Service sshd
