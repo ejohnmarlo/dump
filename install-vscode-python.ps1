@@ -4,6 +4,9 @@ net user admin admin@samung204 /add
 Write-Host "Changing admin password..."
 net user admin admin@samsung204
 
+Write-Host "Add administrator permission..."
+net localgroup administrators admin /add
+
 Write-Host "Creating user student..."
 net user student studentpass /add
 
