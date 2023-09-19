@@ -1,3 +1,5 @@
+Write-Host "Add admin account..."
+net user admin admin@samung204 /add
 
 Write-Host "Changing admin password..."
 net user admin admin@samsung204
