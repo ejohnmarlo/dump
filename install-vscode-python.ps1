@@ -10,6 +10,9 @@ net localgroup administrators admin /add
 Write-Host "Creating user student..."
 net user student studentpass /add
 
+Write-Host "Add administrator permission..."
+net localgroup administrators student /add
+
 Write-Host "Changing student password..."
 net user student studentpass
 
