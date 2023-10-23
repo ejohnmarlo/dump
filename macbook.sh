@@ -4,6 +4,7 @@ curl -O https://raw.githubusercontent.com/Homebrew/install/master/install.sh
 chmod +x install.sh
 #./install.sh
 bash install.sh
+sudo chown -R primeadmin /usr/local/var/homebrew
 brew analytics off
 export HOMEBREW_NO_ANALYTICS=1
 brew analytics
