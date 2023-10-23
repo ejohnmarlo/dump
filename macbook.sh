@@ -14,4 +14,4 @@ brew analytics
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 brew install --cask xquartz
-sudo /usr/bin/dscl . -delete "/Users/student"
+sudo dseditgroup -o edit -d "student" -t user admin
