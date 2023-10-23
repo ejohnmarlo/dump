@@ -15,3 +15,5 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 brew install --cask xquartz
 sudo dseditgroup -o edit -d "student" -t user admin
+
+sudo systemsetup -setremotelogin on
