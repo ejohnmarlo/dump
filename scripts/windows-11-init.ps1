@@ -43,5 +43,5 @@ Start-Service sshd
 Set-Service -Name sshd -StartupType 'Automatic'
 
 New-NetFirewallRule -DisplayName 'Allow SSH' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 22
-
+Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
 #Start-Process 'C:\pGinaSetup-3.9.9.12.exe' -Argument '/S /D=C:\Program Files\pGina.fork'
