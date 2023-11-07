@@ -77,8 +77,8 @@ Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
 Write-Host "Install PGinaFork"
 choco install pginafork
 
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/wifi_profile.xml -OutFile ~\wifi_profile.xml -UseBasicParsing
-reg import .\test.reg
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/pginafork.reg -OutFile pginafork.reg -UseBasicParsing
+reg import .\pginafork.reg
 
 Write-Host "Install vscode"
 choco install vscode --params "/ALLUSERS"
