@@ -42,17 +42,6 @@ start-sleep -second 10
 #Write-Host "Downloading PGina to C://..."
 
 
-
-Write-Host "Downloading PGina to C://..."
-$filePath="C:\pGinaSetup-3.9.9.12.exe"
-if (Test-Path($filePath)) 
-{
-    Write-Host 'Skipping file, already downloaded' -ForegroundColor Yellow
-    return
-}
-Invoke-WebRequest -Uri https://github.com/MutonUfoAI/pgina/releases/download/3.9.9.12/pGinaSetup-3.9.9.12.exe -OutFile $filePath -UseBasicParsing
-
-
 Write-Host "Installing Chocolatey..."
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
@@ -75,4 +64,13 @@ Set-Service -Name sshd -StartupType 'Automatic'
 
 New-NetFirewallRule -DisplayName 'Allow SSH' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 22
 Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
+
+Write-Host "Downloading PGina to C://..."
+$filePath="C:\pGinaSetup-3.9.9.12.exe"
+if (-not(Test-Path($filePath)))
+{
+    Write-Host "File does not exist, downloading" -ForegroundColor Yellow
+    Invoke-WebRequest -Uri https://github.com/MutonUfoAI/pgina/releases/download/3.9.9.12/pGinaSetup-3.9.9.12.exe -OutFile $filePath -UseBasicParsing
+}
+
 Start-Process 'C:\pGinaSetup-3.9.9.12.exe' -Argument '/S /D=C:\Program Files\pGina.fork'
