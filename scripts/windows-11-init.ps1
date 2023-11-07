@@ -65,12 +65,19 @@ Set-Service -Name sshd -StartupType 'Automatic'
 New-NetFirewallRule -DisplayName 'Allow SSH' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 22
 Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
 
-Write-Host "Downloading PGina to C://..."
-$filePath="C:\pGinaSetup-3.9.9.12.exe"
-if (-not(Test-Path($filePath)))
-{
-    Write-Host "File does not exist, downloading" -ForegroundColor Yellow
-    Invoke-WebRequest -Uri https://github.com/MutonUfoAI/pgina/releases/download/3.9.9.12/pGinaSetup-3.9.9.12.exe -OutFile $filePath -UseBasicParsing
-}
+#Write-Host "Downloading PGina to C://..."
+#$filePath="C:\pGinaSetup-3.9.9.12.exe"
+#if (-not(Test-Path($filePath)))
+#{
+#    Write-Host "File does not exist, downloading" -ForegroundColor Yellow
+#    Invoke-WebRequest -Uri https://github.com/MutonUfoAI/pgina/releases/download/3.9.9.12/pGinaSetup-3.9.9.12.exe -OutFile $filePath -UseBasicParsing
+#}
+#Start-Process 'C:\pGinaSetup-3.9.9.12.exe' -Argument '/S /D=C:\Program Files\pGina.fork'
 
-Start-Process 'C:\pGinaSetup-3.9.9.12.exe' -Argument '/S /D=C:\Program Files\pGina.fork'
+Write-Host "Install PGinaFork"
+choco install pginafork
+
+Write-Host "Install vscode"
+choco install vscode
+
+
