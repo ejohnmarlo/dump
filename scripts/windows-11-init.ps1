@@ -83,4 +83,7 @@ reg import .\pginafork.reg
 Write-Host "Install vscode"
 choco install vscode --params "/ALLUSERS"
 
+Write-Host "Install vscode"
+choco install nomachine
+
 
