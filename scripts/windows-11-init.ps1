@@ -41,7 +41,7 @@ $subnet= Read-Host -Prompt "Enter subnet (e.g 24)"
 $gateway= Read-Host -Prompt "Enter Gateway Address"
 New-NetIPAddress -InterfaceAlias "Wi-Fi" -AddressFamily IPv4 $ipaddress -PrefixLength $subnet -Type Unicast -DefaultGateway $gateway
 Set-DnsClientServerAddress -InterfaceAlias "Wi-Fi" -ServerAddresses ("10.158.1.56","10.32.1.7")
-start-sleep -second 5
+start-sleep -second 10
 #Write-Host "Downloading PGina to C://..."
 
 Write-Host "Installing Chocolatey..."
