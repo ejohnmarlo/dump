@@ -31,7 +31,7 @@ netsh wlan add profile filename=C:\Users\admin\wifi_profile.xml
 netsh wlan connect name="Computing Laboratory"
 
 Write-Host "Setting IP Address..."
-#Set-NetIPInterface -InterfaceAlias "Wi-Fi" -Dhcp Disabled
+Set-NetIPInterface -InterfaceAlias "Wi-Fi" -Dhcp Enabled
 Remove-NetIPAddress -InterfaceAlias "Wi-Fi" -Confirm:$false
 Remove-NetRoute -InterfaceAlias "Wi-Fi" -Confirm:$false
 
