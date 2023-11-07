@@ -1,3 +1,5 @@
+Set-ExecutionPolicy Bypass -Scope Process -Force
+
 Write-Host "Changing admin password..."
 net user admin ++adminzbook2023!!
 
