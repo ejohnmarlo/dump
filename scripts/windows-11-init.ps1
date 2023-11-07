@@ -23,9 +23,9 @@ Write-Host "Downloading WiFi Profile..."
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/wifi_profile.xml -OutFile .\wifi_profile.xml -UseBasicParsing
 
 Write-Host "Connecting to WiFi..."
-netsh wlan delete profile name="Profile1"
+netsh wlan delete profile name="Computing Laboratory"
 netsh wlan add profile filename=.\wifi_profile.xml
-netsh wlan connect name="Profile1"
+netsh wlan connect name="Computing Laboratory"
 
 #Write-Host "Downloading PGina to C://..."
 
