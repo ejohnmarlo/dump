@@ -19,8 +19,15 @@ Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\C
 Write-Host "Disable sleep mode..."
 powercfg -change -standby-timeout-ac 0
 
-Write-Host "Downloading PGina to C://..."
-Invoke-WebRequest -Uri https://github.com/MutonUfoAI/pgina/releases/download/3.9.9.12/pGinaSetup-3.9.9.12.exe -OutFile C:\pGinaSetup-3.9.9.12.exe -UseBasicParsing
+Write-Host "Downloading WiFi Profile..."
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/wifi_profile.xml -OutFile .\wifi_profile.xml -UseBasicParsing
+
+Write-Host "Connecting to WiFi..."
+netsh wlan delete profile name="Profile1"
+netsh wlan add profile filename=.\wifi_profile.xml
+netsh wlan connect name="Profile1"
+
+#Write-Host "Downloading PGina to C://..."
 
 Write-Host "Installing Chocolatey..."
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
