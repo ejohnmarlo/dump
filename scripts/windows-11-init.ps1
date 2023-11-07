@@ -38,10 +38,10 @@ choco feature enable -n='useRememberedArgumentsForUpgrades'
 Write-Host "Allow Global confirmation when installing and updating packages..."
 choco feature enable -n=allowGlobalConfirmation
 
-Write-Host "Installing OpenSSH..."
+#Write-Host "Installing OpenSSH..."
 #winget install "openssh beta" --source=winget --scope=machine
-choco uninstall openssh
-choco install openssh --params "/ALLUSERS"
+#choco uninstall openssh
+#choco install openssh --params "/ALLUSERS"
 
 Write-Host "Installing OpenSSH-server"
 Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
