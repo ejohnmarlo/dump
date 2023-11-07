@@ -41,6 +41,18 @@ Set-DnsClientServerAddress -InterfaceAlias "Wi-Fi" -ServerAddresses ("10.158.1.5
 start-sleep -second 10
 #Write-Host "Downloading PGina to C://..."
 
+
+
+Write-Host "Downloading PGina to C://..."
+$filePath=C:\pGinaSetup-3.9.9.12.exe
+if (Test-Path($filePath)) 
+{
+    Write-Host 'Skipping file, already downloaded' -ForegroundColor Yellow
+    return
+}
+Invoke-WebRequest -Uri https://github.com/MutonUfoAI/pgina/releases/download/3.9.9.12/pGinaSetup-3.9.9.12.exe -OutFile $filePath -UseBasicParsing
+
+
 Write-Host "Installing Chocolatey..."
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
