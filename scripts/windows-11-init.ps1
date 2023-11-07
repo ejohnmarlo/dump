@@ -1,5 +1,14 @@
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
+Write-Host "Installing Chocolatey..."
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+Write-Host "Enabling remembered argument for Upgrades on Chocolatey..."
+choco feature enable -n='useRememberedArgumentsForUpgrades'
+
+Write-Host "Allow Global confirmation when installing and updating packages..."
+choco feature enable -n=allowGlobalConfirmation
+
 Write-Host "Changing admin password..."
 net user admin ++adminzbook2023!!
 
@@ -42,16 +51,6 @@ New-NetIPAddress -InterfaceAlias "Wi-Fi" -AddressFamily IPv4 $ipaddress -PrefixL
 Set-DnsClientServerAddress -InterfaceAlias "Wi-Fi" -ServerAddresses ("10.158.1.56","10.32.1.7")
 start-sleep -second 10
 #Write-Host "Downloading PGina to C://..."
-
-
-Write-Host "Installing Chocolatey..."
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-
-Write-Host "Enabling remembered argument for Upgrades on Chocolatey..."
-choco feature enable -n='useRememberedArgumentsForUpgrades'
-
-Write-Host "Allow Global confirmation when installing and updating packages..."
-choco feature enable -n=allowGlobalConfirmation
 
 #Write-Host "Installing OpenSSH..."
 #winget install "openssh beta" --source=winget --scope=machine
