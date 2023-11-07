@@ -4,16 +4,16 @@ net user admin ++adminzbook2023!!
 Write-Host "Add administrator permission..."
 net localgroup administrators admin /add
 
-Write-Host "Creating user student..."
+Write-Host "Creating user student..." 
 net user student studentpass /add
 
-Write-Host "Add administrator permission..."
+Write-Host "Add administrator permission..." 
 net localgroup administrators student /add
 
-Write-Host "Changing student password..."
+Write-Host "Changing student password..." 
 net user student studentpass
 
-Write-Host "Disable popup on install..."
+Write-Host "Disable popup on install..." 
 Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0
 
 Write-Host "Disable sleep mode..."
@@ -40,6 +40,7 @@ $ipaddress= Read-Host -Prompt "Enter IP Address"
 $subnet= Read-Host -Prompt "Enter subnet (e.g 24)"
 $gateway= Read-Host -Prompt "Enter Gateway Address"
 New-NetIPAddress -InterfaceAlias "Wi-Fi" -AddressFamily IPv4 $ipaddress -PrefixLength $subnet -Type Unicast -DefaultGateway $gateway
+Set-DnsClientServerAddress -InterfaceAlias "Wi-Fi" -ServerAddresses ("10.158.1.56","10.32.1.7")
 #Write-Host "Downloading PGina to C://..."
 
 Write-Host "Installing Chocolatey..."
