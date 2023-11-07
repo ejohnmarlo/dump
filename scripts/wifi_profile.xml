@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
         <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-            <name>Profile1</name>
+            <name>Computing Laboratory</name>
             <SSIDConfig>
                 <SSID>
                     <name>Computing Laboratory</name>
