@@ -44,7 +44,7 @@ start-sleep -second 10
 
 
 Write-Host "Downloading PGina to C://..."
-$filePath=C:\pGinaSetup-3.9.9.12.exe
+$filePath="C:\pGinaSetup-3.9.9.12.exe"
 if (Test-Path($filePath)) 
 {
     Write-Host 'Skipping file, already downloaded' -ForegroundColor Yellow
