@@ -78,6 +78,6 @@ Write-Host "Install PGinaFork"
 choco install pginafork
 
 Write-Host "Install vscode"
-choco install vscode
+choco install vscode --params "/ALLUSERS"
 
 
