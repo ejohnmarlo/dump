@@ -30,6 +30,16 @@ netsh wlan delete profile name="Computing Laboratory"
 netsh wlan add profile filename=C:\Users\admin\wifi_profile.xml
 netsh wlan connect name="Computing Laboratory"
 
+Write-Host "Setting IP Address..."
+Set-NetIPInterface -InterfaceAlias "Wi-Fi" -Dhcp Disabled
+Remove-NetIPAddress -InterfaceAlias "Wi-Fi" -Confirm:$false
+Remove-NetRoute -InterfaceAlias "Wi-Fi" -Confirm:$false
+
+Write-Host "Enter IP Configuration" -ForegroundColor Green
+$ipaddress= Read-Host -Prompt "Enter IP Address"
+$subnet= Read-Host -Prompt "Enter subnet (e.g 24)"
+$gateway= Read-Host -Prompt "Enter Gateway Address"
+New-NetIPAddress -InterfaceAlias "Wi-Fi" -AddressFamily IPv4 $ipaddress -PrefixLength $subnet -Type Unicast -DefaultGateway $gateway
 #Write-Host "Downloading PGina to C://..."
 
 Write-Host "Installing Chocolatey..."
