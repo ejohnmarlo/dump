@@ -27,7 +27,7 @@ Invoke-WebRequest -Uri https://raw.githubusercontent.com/ejohnmarlo/dump/main/sc
 
 Write-Host "Connecting to WiFi..."
 netsh wlan delete profile name="Computing Laboratory"
-netsh wlan add profile filename=~\wifi_profile.xml
+netsh wlan add profile filename=C:\Users\admin\wifi_profile.xml
 netsh wlan connect name="Computing Laboratory"
 
 #Write-Host "Downloading PGina to C://..."
