@@ -68,6 +68,7 @@ New-NetFirewallRule -DisplayName 'Allow NoMachine' -Direction Inbound -Action Al
 #Remove-NetFirewallRule -DisplayName 'Allow Nomachine'
 New-NetFirewallRule -DisplayName 'Allow SSH' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 22
 Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
+New-NetFirewallRule -DisplayName 'Allow inbound ICMPv4' -Direction Inbound -Protocol ICMPv4 -IcmpType 8 -Action Allow
 
 #Write-Host "Downloading PGina to C://..."
 #$filePath="C:\pGinaSetup-3.9.9.12.exe"
