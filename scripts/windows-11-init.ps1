@@ -63,6 +63,8 @@ Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 Start-Service sshd
 Set-Service -Name sshd -StartupType 'Automatic'
 
+New-NetFirewallRule -DisplayName 'Allow NoMachine' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 4000
+#Remove-NetFirewallRule -DisplayName 'Allow Nomachine'
 New-NetFirewallRule -DisplayName 'Allow SSH' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 22
 Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
 
