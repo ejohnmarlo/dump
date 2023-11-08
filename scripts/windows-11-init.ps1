@@ -40,6 +40,7 @@ netsh wlan connect name="Computing Laboratory"
 
 Write-Host "Setting IP Address..."
 Set-NetIPInterface -InterfaceAlias "Wi-Fi" -Dhcp Enabled
+start-sleep -second 10
 Remove-NetIPAddress -InterfaceAlias "Wi-Fi" -Confirm:$false
 Remove-NetRoute -InterfaceAlias "Wi-Fi" -Confirm:$false
 
