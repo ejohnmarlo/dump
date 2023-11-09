@@ -1,5 +1,7 @@
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
+Write-Host "Setting Timezone..."
+
 Set-TimeZone -Id "Taipei Standard Time"
 
 Write-Host "Installing Chocolatey..."
@@ -48,8 +50,10 @@ Remove-NetRoute -InterfaceAlias "Wi-Fi" -Confirm:$false
 
 Write-Host "Enter IP Configuration" -ForegroundColor Green
 $ipaddress= Read-Host -Prompt "Enter IP Address"
-$subnet= Read-Host -Prompt "Enter subnet (e.g 24)"
-$gateway= Read-Host -Prompt "Enter Gateway Address"
+#$subnet= Read-Host -Prompt "Enter subnet (e.g 24)"
+$subnet="24"
+#$gateway= Read-Host -Prompt "Enter Gateway Address"
+$gateway="10.158.72.1"
 New-NetIPAddress -InterfaceAlias "Wi-Fi" -AddressFamily IPv4 $ipaddress -PrefixLength $subnet -Type Unicast -DefaultGateway $gateway
 Set-DnsClientServerAddress -InterfaceAlias "Wi-Fi" -ServerAddresses ("10.158.1.56","10.32.1.7")
 start-sleep -second 10
