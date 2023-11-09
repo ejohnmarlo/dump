@@ -34,6 +34,9 @@ Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\C
 Write-Host "Disable sleep mode..."
 powercfg -change -standby-timeout-ac 0
 
+Write-Host "Disable turn off screen mode..."
+powercfg -change -monitor-timeout-ac 0
+
 Write-Host "Downloading WiFi Profile..."
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/wifi_profile.xml -OutFile ~\wifi_profile.xml -UseBasicParsing
 
