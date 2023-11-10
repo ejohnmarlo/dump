@@ -41,10 +41,11 @@ powercfg -change -standby-timeout-ac 0
 Write-Host "Disable turn off screen mode..."
 powercfg -change -monitor-timeout-ac 0
 
+
 Write-Host "Check if Wi-Fi is already setup..."
 #Check if ip address is already configured
-$test= Get-NetIPaddress -InterfaceAlias "Wi-Fi" -AddressFamily "IPv4" | select IpAddress
-if ($test -notlike "*10.158.72.*")
+$testIP= Get-NetIPaddress -InterfaceAlias "Wi-Fi" -AddressFamily "IPv4" | select IpAddress
+if ($testIP -notlike "*10.158.72.*")
 {
   Write-Host "WiFi not yet setup..."
   Write-Host "Downloading WiFi Profile..."
@@ -75,6 +76,17 @@ if ($test -notlike "*10.158.72.*")
   New-NetIPAddress -InterfaceAlias "Wi-Fi" -AddressFamily IPv4 $ipaddress -PrefixLength $subnet -Type Unicast -DefaultGateway $gateway
   Set-DnsClientServerAddress -InterfaceAlias "Wi-Fi" -ServerAddresses ("10.158.1.56","10.32.1.7")
   start-sleep -second 10
+}
+
+Write-Host "Check if target SSID is connected..."
+$testSSID= netsh wlan show interface | select-string "SSID"
+if ($testSSID -like "*Computing Laboratory*")
+{
+  Write-Host "Target SSID already setup..."
+  netsh wlan connect name="Computing Laboratory"
+} else
+{
+  Set-NetIPInterface -InterfaceAlias "Wi-Fi" -Dhcp Enabled
 }
 
 #Write-Host "Downloading PGina to C://..."
