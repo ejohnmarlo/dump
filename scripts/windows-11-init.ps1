@@ -4,6 +4,8 @@ Write-Host "Setting Timezone..."
 Set-TimeZone -Id "Taipei Standard Time"
 
 Write-Host "Sync Time"
+net start w32time
+start-sleep -second 2
 w32tm /resync
 
 Write-Host "Installing Chocolatey..."
@@ -49,7 +51,7 @@ netsh wlan connect name="Computing Laboratory"
 
 Write-Host "Setting IP Address..."
 Set-NetIPInterface -InterfaceAlias "Wi-Fi" -Dhcp Enabled
-start-sleep -second 10
+start-sleep -second 5
 Remove-NetIPAddress -InterfaceAlias "Wi-Fi" -Confirm:$false
 Remove-NetRoute -InterfaceAlias "Wi-Fi" -Confirm:$false
 
