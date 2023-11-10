@@ -1,5 +1,7 @@
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
+Set-NetIPInterface -InterfaceAlias "Wi-Fi" -Dhcp Enabled
+
 Write-Host "Setting Timezone..."
 Set-TimeZone -Id "Taipei Standard Time"
 
