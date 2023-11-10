@@ -41,34 +41,41 @@ powercfg -change -standby-timeout-ac 0
 Write-Host "Disable turn off screen mode..."
 powercfg -change -monitor-timeout-ac 0
 
-Write-Host "Downloading WiFi Profile..."
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/wifi_profile.xml -OutFile ~\wifi_profile.xml -UseBasicParsing
+Write-Host "Check if Wi-Fi is already setup..."
+#Check if ip address is already configured
+$test= Get-NetIPaddress -InterfaceAlias "Wi-Fi" -AddressFamily "IPv4" | select IpAddress
+if ($test -notlike "*10.158.72.*")
+{
+  Write-Host "Downloading WiFi Profile..."
+  Invoke-WebRequest -Uri https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/wifi_profile.xml -OutFile ~\wifi_profile.xml -UseBasicParsing
 
-Write-Host "Connecting to WiFi..."
-netsh wlan delete profile name="Computing Laboratory"
-netsh wlan add profile filename=C:\Users\admin\wifi_profile.xml
-netsh wlan connect name="Computing Laboratory"
+  Write-Host "Connecting to WiFi..."
+  netsh wlan delete profile name="Computing Laboratory"
+  netsh wlan add profile filename=C:\Users\admin\wifi_profile.xml
+  netsh wlan connect name="Computing Laboratory"
 
-Write-Host "Setting IP Address..."
-Set-NetIPInterface -InterfaceAlias "Wi-Fi" -Dhcp Enabled
-start-sleep -second 5
-Remove-NetIPAddress -InterfaceAlias "Wi-Fi" -Confirm:$false
-Remove-NetRoute -InterfaceAlias "Wi-Fi" -Confirm:$false
+  Write-Host "Setting IP Address..."
+  Set-NetIPInterface -InterfaceAlias "Wi-Fi" -Dhcp Enabled
+  start-sleep -second 5
+  Remove-NetIPAddress -InterfaceAlias "Wi-Fi" -Confirm:$false
+  Remove-NetRoute -InterfaceAlias "Wi-Fi" -Confirm:$false
 
-Write-Host "Enter IP Configuration" -ForegroundColor Green
-#Get laptop number
-$laptopnum= Read-Host -Prompt "Enter Laptop Number (e.g. 127)"
-# Laptop number + 10
-$laptopnumInt= [int]$laptopnum + 10
-$ipaddress= "10.158.72." + [string]$laptopnumInt
+  Write-Host "Enter IP Configuration" -ForegroundColor Green
+  #Get laptop number
+  $laptopnum= Read-Host -Prompt "Enter Laptop Number (e.g. 127)"
+  # Laptop number + 10
+  $laptopnumInt= [int]$laptopnum + 10
+  $ipaddress= "10.158.72." + [string]$laptopnumInt
 
-#$subnet= Read-Host -Prompt "Enter subnet (e.g 24)"
-$subnet="24"
-#$gateway= Read-Host -Prompt "Enter Gateway Address"
-$gateway="10.158.72.1"
-New-NetIPAddress -InterfaceAlias "Wi-Fi" -AddressFamily IPv4 $ipaddress -PrefixLength $subnet -Type Unicast -DefaultGateway $gateway
-Set-DnsClientServerAddress -InterfaceAlias "Wi-Fi" -ServerAddresses ("10.158.1.56","10.32.1.7")
-start-sleep -second 10
+  #$subnet= Read-Host -Prompt "Enter subnet (e.g 24)"
+  $subnet="24"
+  #$gateway= Read-Host -Prompt "Enter Gateway Address"
+  $gateway="10.158.72.1"
+  New-NetIPAddress -InterfaceAlias "Wi-Fi" -AddressFamily IPv4 $ipaddress -PrefixLength $subnet -Type Unicast -DefaultGateway $gateway
+  Set-DnsClientServerAddress -InterfaceAlias "Wi-Fi" -ServerAddresses ("10.158.1.56","10.32.1.7")
+  start-sleep -second 10
+}
+
 #Write-Host "Downloading PGina to C://..."
 
 #Write-Host "Installing OpenSSH..."
