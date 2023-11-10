@@ -78,16 +78,16 @@ if ($testIP -notlike "*10.158.72.*")
   start-sleep -second 10
 }
 
-Write-Host "Check if target SSID is connected..."
-$testSSID= netsh wlan show interface | select-string "SSID"
-if ($testSSID -notlike "*Computing Laboratory*")
-{
-  Write-Host "Target SSID not connected..."
-  Set-NetIPInterface -InterfaceAlias "Wi-Fi" -Dhcp Enabled
-} else
-{
-  netsh wlan connect name="Computing Laboratory"
-}
+#Write-Host "Check if target SSID is connected..."
+#$testSSID= netsh wlan show interface | select-string "SSID"
+#if ($testSSID -notlike "*Computing Laboratory*")
+#{
+#  Write-Host "Target SSID not connected..."
+#  Set-NetIPInterface -InterfaceAlias "Wi-Fi" -Dhcp Enabled
+#} else
+#{
+#  netsh wlan connect name="Computing Laboratory"
+#}
 
 #Write-Host "Downloading PGina to C://..."
 
