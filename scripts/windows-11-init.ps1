@@ -46,6 +46,7 @@ Write-Host "Check if Wi-Fi is already setup..."
 $test= Get-NetIPaddress -InterfaceAlias "Wi-Fi" -AddressFamily "IPv4" | select IpAddress
 if ($test -notlike "*10.158.72.*")
 {
+  Write-Host "WiFi not yet setup..."
   Write-Host "Downloading WiFi Profile..."
   Invoke-WebRequest -Uri https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/wifi_profile.xml -OutFile ~\wifi_profile.xml -UseBasicParsing
 
