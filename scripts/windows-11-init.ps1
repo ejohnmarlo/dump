@@ -56,7 +56,12 @@ Remove-NetIPAddress -InterfaceAlias "Wi-Fi" -Confirm:$false
 Remove-NetRoute -InterfaceAlias "Wi-Fi" -Confirm:$false
 
 Write-Host "Enter IP Configuration" -ForegroundColor Green
-$ipaddress= Read-Host -Prompt "Enter IP Address"
+#Get laptop number
+$laptopnum= Read-Host -Prompt "Enter Laptop Number (e.g. 127)"
+# Laptop number + 10
+$laptopnumInt= [int]$laptopnum + 10
+$ipaddress= "10.158.72." + [string]$laptopnumInt
+
 #$subnet= Read-Host -Prompt "Enter subnet (e.g 24)"
 $subnet="24"
 #$gateway= Read-Host -Prompt "Enter Gateway Address"
