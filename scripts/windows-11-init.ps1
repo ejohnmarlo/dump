@@ -37,9 +37,11 @@ Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\C
 
 Write-Host "Disable sleep mode..."
 powercfg -change -standby-timeout-ac 0
+powercfg -change -standby-timeout-dc 0
 
 Write-Host "Disable turn off screen mode..."
 powercfg -change -monitor-timeout-ac 0
+powercfg -change -monitor-timeout-dc 0
 
 
 Write-Host "Check if Wi-Fi is already setup..."
