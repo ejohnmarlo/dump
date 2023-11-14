@@ -131,4 +131,7 @@ choco install vscode --params "/ALLUSERS"
 Write-Host "Install vscode"
 choco install nomachine
 
+Write-Host -NoNewLine 'Press any key to continue...';
+$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+
 
