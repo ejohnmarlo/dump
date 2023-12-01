@@ -128,7 +128,8 @@ reg import .\pginafork.reg
 Write-Host "Install vscode"
 choco install vscode --params "/ALLUSERS"
 
-Write-Host "Install vscode"
+Write-Host "Install nomachine"
+winget install "NoMachine.NoMachine" --source=winget --scope=machine
 choco install nomachine
 
 Write-Host -NoNewLine 'Press any key to continue...';
