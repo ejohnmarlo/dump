@@ -24,7 +24,7 @@ Write-Host "Add administrator permission..."
 net localgroup administrators admin /add
 
 Write-Host "Creating user student..." 
-net user student studentpass /add
+net user student studentpass /add /expires:never
 
 Write-Host "Add administrator permission..." 
 net localgroup administrators student /add
