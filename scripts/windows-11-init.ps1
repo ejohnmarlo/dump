@@ -128,6 +128,24 @@ reg import .\pginafork.reg
 Write-Host "Install vscode"
 choco install vscode --params "/ALLUSERS"
 
+Write-Host "Installing Python 3.10 to all users..."
+#winget uninstall Python.Python.3.10
+#winget install Python.Python.3.10 --source=winget --scope=machine
+choco uninstall Python310
+choco install Python310 --params "/ALLUSERS"
+
+Write-Host "Installing Python 3.11 to all users..."
+#winget uninstall Python.Python.3.11
+#winget install Python.Python.3.11 --source=winget --scope=machine
+choco uninstall Python311
+choco install Python311 --params "/ALLUSERS"
+
+Write-Host "Changing Windows permission to allow multi-user access of Python..."
+icacls "C:\Program Files\Python310" /grant Users:f /t /q
+icacls "C:\Program Files\Python311" /grant Users:f /t /q
+icacls "C:\Python310" /grant Users:f /t /q
+icacls "C:\Python311" /grant Users:f /t /q
+
 Write-Host "Install nomachine"
 winget install "NoMachine.NoMachine" --source=winget --scope=machine
 choco install nomachine
