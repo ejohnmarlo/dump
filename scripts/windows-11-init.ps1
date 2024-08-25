@@ -128,6 +128,9 @@ reg import .\pginafork.reg
 Write-Host "Install vscode"
 choco install vscode --params "/ALLUSERS"
 
+Write-Host "Install Powershell core"
+winget install --id Microsoft.Powershell --source winget --scope=machine
+
 Write-Host "Installing Python 3.10 to all users..."
 #winget uninstall Python.Python.3.10
 #winget install Python.Python.3.10 --source=winget --scope=machine
