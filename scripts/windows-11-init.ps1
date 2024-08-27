@@ -1,3 +1,28 @@
+# Function to check internet connectivity
+function Test-InternetConnection {
+    try {
+        # Try to reach a well-known public DNS server (e.g., Google's DNS server)
+        $response = Test-Connection -ComputerName google.com -Count 1 -Quiet -ErrorAction Stop
+        return $response
+    } catch {
+        return $false
+    }
+}
+
+# Wait until an internet connection is available
+Write-Host "Checking for internet connection..."
+while (-not (Test-InternetConnection)) {
+    Write-Host "No internet connection detected. Retrying in 5 seconds..."
+    Start-Sleep -Seconds 5
+}
+
+# Continue with the rest of the script once an internet connection is detected
+Write-Host "Internet connection detected. Continuing with the script..."
+
+# Your script's main tasks go here
+# e.g., Downloading a file, connecting to a remote server, etc.
+# ...
+
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
 Write-Host "Setting Timezone..."
