@@ -1,5 +1,5 @@
 # Prevent the script from terminating on errors
-$ErrorActionPreference = "Continue"
+#$ErrorActionPreference = "Continue"
 
 # Function to check internet connectivity
 function Test-InternetConnection {
@@ -159,8 +159,10 @@ choco install vscode --params "/ALLUSERS"
 choco upgrade vscode
 
 Write-Host "Install Powershell core"
-winget install --id Microsoft.Powershell --source winget --scope=machine
-winget upgrade Microsoft.Powershell
+#winget install --id Microsoft.Powershell --source winget --scope=machine
+#winget upgrade Microsoft.Powershell
+choco install powershell-core
+choco upgrade powershell-core
 
 Write-Host "Installing Python 3.10 to all users..."
 #winget uninstall Python.Python.3.10
