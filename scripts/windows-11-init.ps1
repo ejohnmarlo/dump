@@ -204,15 +204,15 @@ if ($testIP -notlike "*10.158.72.*")
 #choco install openssh --params "/ALLUSERS"
 
 Write-Host "Installing OpenSSH-server"
-Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
-Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
-Start-Service sshd
-Set-Service -Name sshd -StartupType 'Automatic'
+#Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
+#Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+#Start-Service sshd
+#Set-Service -Name sshd -StartupType 'Automatic'
 
 New-NetFirewallRule -DisplayName 'Allow NoMachine' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 4000
 #Remove-NetFirewallRule -DisplayName 'Allow Nomachine'
-New-NetFirewallRule -DisplayName 'Allow SSH' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 22
-Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
+#New-NetFirewallRule -DisplayName 'Allow SSH' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 22
+#Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
 New-NetFirewallRule -DisplayName 'Allow inbound ICMPv4' -Direction Inbound -Protocol ICMPv4 -IcmpType 8 -Action Allow
 
 #Write-Host "Downloading PGina to C://..."
