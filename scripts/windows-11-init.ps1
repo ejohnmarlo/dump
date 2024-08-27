@@ -1,3 +1,6 @@
+# Prevent the script from terminating on errors
+$ErrorActionPreference = "Continue"
+
 # Function to check internet connectivity
 function Test-InternetConnection {
     try {
