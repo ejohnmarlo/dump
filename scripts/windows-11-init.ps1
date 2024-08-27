@@ -26,6 +26,37 @@ Write-Host "Internet connection detected. Continuing with the script..."
 # e.g., Downloading a file, connecting to a remote server, etc.
 # ...
 
+# Define the name of the script (this script) and the startup shortcut
+$scriptPath = $MyInvocation.MyCommand.Path
+$shortcutName = "win11init.lnk"
+
+# Define the path to the Windows Startup folder
+$startupFolder = [System.IO.Path]::Combine([System.Environment]::GetFolderPath('Startup'), $shortcutName)
+
+# Check if the shortcut already exists
+if (-Not (Test-Path $startupFolder)) {
+    # Create a WScript.Shell COM object
+    $wshShell = New-Object -ComObject WScript.Shell
+
+    # Create a new shortcut
+    $shortcut = $wshShell.CreateShortcut($startupFolder)
+
+    # Set the target path to this script
+    $shortcut.TargetPath = $scriptPath
+
+    # Optionally, set additional shortcut properties like the working directory or icon
+    $shortcut.WorkingDirectory = [System.IO.Path]::GetDirectoryName($scriptPath)
+    $shortcut.IconLocation = "$($env:SystemRoot)\System32\shell32.dll,1"
+
+    # Save the shortcut
+    $shortcut.Save()
+
+    Write-Host "Shortcut created successfully in the Startup folder."
+} else {
+    Write-Host "Shortcut already exists in the Startup folder."
+}
+
+
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
 Write-Host "Setting Timezone..."
