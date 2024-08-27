@@ -27,52 +27,70 @@ Write-Host "Internet connection detected. Continuing with the script..."
 # ...
 
 # Define the name of the shortcut
-$shortcutName = "MyScriptShortcut.lnk"
+#$shortcutName = "win11init.lnk"
 
 # Define the path to the Windows Startup folder
-$startupFolder = [System.IO.Path]::Combine([System.Environment]::GetFolderPath('Startup'), $shortcutName)
+#$startupFolder = [System.IO.Path]::Combine([System.Environment]::GetFolderPath('Startup'), $shortcutName)
 
 # Check if the shortcut already exists
 # Location is Win + R, then type shell:startup
-if (-Not (Test-Path $startupFolder)) {
+#if (-Not (Test-Path $startupFolder)) {
     # Create a WScript.Shell COM object
-    $wshShell = New-Object -ComObject WScript.Shell
+#    $wshShell = New-Object -ComObject WScript.Shell
 
     # Create a new shortcut
-    $shortcut = $wshShell.CreateShortcut($startupFolder)
+#    $shortcut = $wshShell.CreateShortcut($startupFolder)
 
     # Set the target path to run PowerShell with the specified command
-    $shortcut.TargetPath = "powershell.exe"
+ #   $shortcut.TargetPath = "powershell.exe"
 
     # Set the arguments to run the desired PowerShell command
-    $shortcut.Arguments = '-C "irm https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/windows-11-init.ps1 | iex"'
+ #   $shortcut.Arguments = '-C "irm https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/windows-11-init.ps1 | iex"'
 
     # Optionally, set additional shortcut properties like the working directory or icon
-    $shortcut.WorkingDirectory = [System.IO.Path]::GetDirectoryName($startupFolder)
-    $shortcut.IconLocation = "$($env:SystemRoot)\System32\shell32.dll,1"
+  #  $shortcut.WorkingDirectory = [System.IO.Path]::GetDirectoryName($startupFolder)
+  #  $shortcut.IconLocation = "$($env:SystemRoot)\System32\shell32.dll,1"
 
     # Set the shortcut to run as administrator
-    $shortcutDescription = "Run as administrator"
-    $shortcutDescription += [char]0 + [char]0
-    $shortcut.Save()
-    $shortcutPath = $shortcut.FullName
+  #  $shortcutDescription = "Run as administrator"
+  #  $shortcutDescription += [char]0 + [char]0
+  #  $shortcut.Save()
+  #  $shortcutPath = $shortcut.FullName
 
     # Modify the shortcut to run as administrator
-    $shellApplication = New-Object -ComObject Shell.Application
-    $folder = $shellApplication.NameSpace([System.IO.Path]::GetDirectoryName($startupFolder))
-    $file = $folder.ParseName([System.IO.Path]::GetFileName($startupFolder))
-    $verb = $file.Verbs() | Where-Object { $_.Name -eq "runas" }
+   # $shellApplication = New-Object -ComObject Shell.Application
+   # $folder = $shellApplication.NameSpace([System.IO.Path]::GetDirectoryName($startupFolder))
+   # $file = $folder.ParseName([System.IO.Path]::GetFileName($startupFolder))
+   # $verb = $file.Verbs() | Where-Object { $_.Name -eq "runas" }
 
-    if ($verb) {
+    #if ($verb) {
         # Invoke the "runas" verb to set the shortcut to run as administrator
-        $verb.DoIt()
-    }
+     #   $verb.DoIt()
+    #}
 
-    Write-Host "Shortcut created successfully in the Startup folder with elevated permissions."
+    #Write-Host "Shortcut created successfully in the Startup folder with elevated permissions."
+#} else {
+ #   Write-Host "Shortcut already exists in the Startup folder."
+#}
+
+
+# Get the full path of the current script
+$currentScriptPath = $MyInvocation.MyCommand.Path
+
+# Define the path to the Startup folder for the current user
+$startupFolderPath = [System.IO.Path]::Combine($env:APPDATA, 'Microsoft\Windows\Start Menu\Programs\Startup')
+
+# Define the path where the script will be copied in the Startup folder
+$destinationPath = [System.IO.Path]::Combine($startupFolderPath, [System.IO.Path]::GetFileName($currentScriptPath))
+
+# Check if the script already exists in the Startup folder
+if (-Not (Test-Path -Path $destinationPath)) {
+    # Copy the script to the Startup folder
+    Copy-Item -Path $currentScriptPath -Destination $destinationPath
+    Write-Host "Script copied to $destinationPath"
 } else {
-    Write-Host "Shortcut already exists in the Startup folder."
+    Write-Host "Script already exists in the Startup folder. No action taken."
 }
-
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
