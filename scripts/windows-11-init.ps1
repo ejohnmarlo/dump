@@ -146,27 +146,32 @@ New-NetFirewallRule -DisplayName 'Allow inbound ICMPv4' -Direction Inbound -Prot
 
 Write-Host "Install PGinaFork"
 choco install pginafork
+choco upgrade pginafork
 
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/pginafork.reg -OutFile pginafork.reg -UseBasicParsing
 reg import .\pginafork.reg
 
 Write-Host "Install vscode"
 choco install vscode --params "/ALLUSERS"
+choco upgrade vscode
 
 Write-Host "Install Powershell core"
 winget install --id Microsoft.Powershell --source winget --scope=machine
+winget upgrade Microsoft.Powershell
 
 Write-Host "Installing Python 3.10 to all users..."
 #winget uninstall Python.Python.3.10
 #winget install Python.Python.3.10 --source=winget --scope=machine
 #choco uninstall Python310
 choco install Python310 --params "/ALLUSERS"
+choco upgrade Python310
 
 Write-Host "Installing Python 3.11 to all users..."
 #winget uninstall Python.Python.3.11
 #winget install Python.Python.3.11 --source=winget --scope=machine
 #choco uninstall Python311
 choco install Python311 --params "/ALLUSERS"
+choco upgrade Python311
 
 Write-Host "Changing Windows permission to allow multi-user access of Python..."
 icacls "C:\Program Files\Python310" /grant Users:f /t /q
@@ -177,6 +182,7 @@ icacls "C:\Python311" /grant Users:f /t /q
 Write-Host "Install nomachine"
 winget install "NoMachine.NoMachine" --source=winget --scope=machine
 choco install nomachine
+choco update nomachine
 
 Write-Host -NoNewLine 'Press any key to continue...';
 $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
