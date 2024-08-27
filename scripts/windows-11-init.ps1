@@ -185,7 +185,7 @@ icacls "C:\Python311" /grant Users:f /t /q
 Write-Host "Install nomachine"
 winget install "NoMachine.NoMachine" --source=winget --scope=machine
 choco install nomachine
-choco update nomachine
+choco upgrade nomachine
 
 Write-Host -NoNewLine 'Press any key to continue...';
 $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
