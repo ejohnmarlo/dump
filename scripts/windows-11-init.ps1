@@ -74,22 +74,33 @@ Write-Host "Internet connection detected. Continuing with the script..."
 #}
 
 
-# Get the full path of the current script
-$currentScriptPath = $MyInvocation.MyCommand.Path
+# Define the shortcut name
+$shortcutName = "win11init.lnk"
+
+# Define the path to the Desktop folder for the current user
+$desktopPath = [System.IO.Path]::Combine($env:USERPROFILE, 'Desktop')
+
+# Define the full path to the shortcut on the Desktop
+$shortcutSourcePath = [System.IO.Path]::Combine($desktopPath, $shortcutName)
 
 # Define the path to the Startup folder for the current user
 $startupFolderPath = [System.IO.Path]::Combine($env:APPDATA, 'Microsoft\Windows\Start Menu\Programs\Startup')
 
-# Define the path where the script will be copied in the Startup folder
-$destinationPath = [System.IO.Path]::Combine($startupFolderPath, [System.IO.Path]::GetFileName($currentScriptPath))
+# Define the destination path in the Startup folder
+$destinationPath = [System.IO.Path]::Combine($startupFolderPath, $shortcutName)
 
-# Check if the script already exists in the Startup folder
-if (-Not (Test-Path -Path $destinationPath)) {
-    # Copy the script to the Startup folder
-    Copy-Item -Path $currentScriptPath -Destination $destinationPath
-    Write-Host "Script copied to $destinationPath"
+# Check if the shortcut exists on the Desktop
+if (Test-Path -Path $shortcutSourcePath) {
+    # Check if the shortcut already exists in the Startup folder
+    if (-Not (Test-Path -Path $destinationPath)) {
+        # Copy the shortcut to the Startup folder
+        Copy-Item -Path $shortcutSourcePath -Destination $destinationPath
+        Write-Host "Shortcut copied to $destinationPath"
+    } else {
+        Write-Host "Shortcut already exists in the Startup folder. No action taken."
+    }
 } else {
-    Write-Host "Script already exists in the Startup folder. No action taken."
+    Write-Host "Shortcut not found on the Desktop. No action taken."
 }
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
