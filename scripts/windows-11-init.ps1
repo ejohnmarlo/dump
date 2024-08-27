@@ -231,15 +231,15 @@ choco upgrade pginafork
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/pginafork.reg -OutFile pginafork.reg -UseBasicParsing
 reg import .\pginafork.reg
 
-Write-Host "Install vscode"
-choco install vscode --params "/ALLUSERS"
-choco upgrade vscode
-
 Write-Host "Install Powershell core"
 #winget install --id Microsoft.Powershell --source winget --scope=machine
 #winget upgrade Microsoft.Powershell
 choco install powershell-core
 choco upgrade powershell-core
+
+Write-Host "Install vscode"
+choco install vscode --params "/ALLUSERS"
+choco upgrade vscode
 
 Write-Host "Installing Python 3.10 to all users..."
 #winget uninstall Python.Python.3.10
