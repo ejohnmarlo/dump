@@ -26,14 +26,14 @@ Write-Host "Internet connection detected. Continuing with the script..."
 # e.g., Downloading a file, connecting to a remote server, etc.
 # ...
 
-# Define the name of the script (this script) and the startup shortcut
-$scriptPath = $MyInvocation.MyCommand.Path
-$shortcutName = "win11init.lnk"
+# Define the name of the shortcut
+$shortcutName = "MyScriptShortcut.lnk"
 
 # Define the path to the Windows Startup folder
 $startupFolder = [System.IO.Path]::Combine([System.Environment]::GetFolderPath('Startup'), $shortcutName)
 
 # Check if the shortcut already exists
+# Location is Win + R, then type shell:startup
 if (-Not (Test-Path $startupFolder)) {
     # Create a WScript.Shell COM object
     $wshShell = New-Object -ComObject WScript.Shell
@@ -41,17 +41,34 @@ if (-Not (Test-Path $startupFolder)) {
     # Create a new shortcut
     $shortcut = $wshShell.CreateShortcut($startupFolder)
 
-    # Set the target path to this script
-    $shortcut.TargetPath = $scriptPath
+    # Set the target path to run PowerShell with the specified command
+    $shortcut.TargetPath = "powershell.exe"
+
+    # Set the arguments to run the desired PowerShell command
+    $shortcut.Arguments = '-C "irm https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/windows-11-init.ps1 | iex"'
 
     # Optionally, set additional shortcut properties like the working directory or icon
-    $shortcut.WorkingDirectory = [System.IO.Path]::GetDirectoryName($scriptPath)
+    $shortcut.WorkingDirectory = [System.IO.Path]::GetDirectoryName($startupFolder)
     $shortcut.IconLocation = "$($env:SystemRoot)\System32\shell32.dll,1"
 
-    # Save the shortcut
+    # Set the shortcut to run as administrator
+    $shortcutDescription = "Run as administrator"
+    $shortcutDescription += [char]0 + [char]0
     $shortcut.Save()
+    $shortcutPath = $shortcut.FullName
 
-    Write-Host "Shortcut created successfully in the Startup folder."
+    # Modify the shortcut to run as administrator
+    $shellApplication = New-Object -ComObject Shell.Application
+    $folder = $shellApplication.NameSpace([System.IO.Path]::GetDirectoryName($startupFolder))
+    $file = $folder.ParseName([System.IO.Path]::GetFileName($startupFolder))
+    $verb = $file.Verbs() | Where-Object { $_.Name -eq "runas" }
+
+    if ($verb) {
+        # Invoke the "runas" verb to set the shortcut to run as administrator
+        $verb.DoIt()
+    }
+
+    Write-Host "Shortcut created successfully in the Startup folder with elevated permissions."
 } else {
     Write-Host "Shortcut already exists in the Startup folder."
 }
