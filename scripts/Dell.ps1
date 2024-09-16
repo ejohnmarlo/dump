@@ -44,7 +44,8 @@ powercfg -change -monitor-timeout-ac 0
 powercfg -change -monitor-timeout-dc 0
 
 Write-Host "Install LTSpice"
-winget install "AnalogDevices.LTspice" --source=winget --scope=machine
+#winget install "AnalogDevices.LTspice" --source=winget --scope=machine
+choco install ltspice --params "/ALLUSERS"
 
 Write-Host -NoNewLine 'Press any key to continue...';
 $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
