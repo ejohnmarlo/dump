@@ -1,108 +1,3 @@
-# Prevent the script from terminating on errors
-#$ErrorActionPreference = "Continue"
-
-# Function to check internet connectivity
-function Test-InternetConnection {
-    try {
-        # Try to reach a well-known public DNS server (e.g., Google's DNS server)
-        $response = Test-Connection -ComputerName google.com -Count 1 -Quiet -ErrorAction Stop
-        return $response
-    } catch {
-        return $false
-    }
-}
-
-# Wait until an internet connection is available
-Write-Host "Checking for internet connection..."
-while (-not (Test-InternetConnection)) {
-    Write-Host "No internet connection detected. Retrying in 5 seconds..."
-    Start-Sleep -Seconds 5
-}
-
-# Continue with the rest of the script once an internet connection is detected
-Write-Host "Internet connection detected. Continuing with the script..."
-
-# Your script's main tasks go here
-# e.g., Downloading a file, connecting to a remote server, etc.
-# ...
-
-# Define the name of the shortcut
-#$shortcutName = "win11init.lnk"
-
-# Define the path to the Windows Startup folder
-#$startupFolder = [System.IO.Path]::Combine([System.Environment]::GetFolderPath('Startup'), $shortcutName)
-
-# Check if the shortcut already exists
-# Location is Win + R, then type shell:startup
-#if (-Not (Test-Path $startupFolder)) {
-    # Create a WScript.Shell COM object
-#    $wshShell = New-Object -ComObject WScript.Shell
-
-    # Create a new shortcut
-#    $shortcut = $wshShell.CreateShortcut($startupFolder)
-
-    # Set the target path to run PowerShell with the specified command
- #   $shortcut.TargetPath = "powershell.exe"
-
-    # Set the arguments to run the desired PowerShell command
- #   $shortcut.Arguments = '-C "irm https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/windows-11-init.ps1 | iex"'
-
-    # Optionally, set additional shortcut properties like the working directory or icon
-  #  $shortcut.WorkingDirectory = [System.IO.Path]::GetDirectoryName($startupFolder)
-  #  $shortcut.IconLocation = "$($env:SystemRoot)\System32\shell32.dll,1"
-
-    # Set the shortcut to run as administrator
-  #  $shortcutDescription = "Run as administrator"
-  #  $shortcutDescription += [char]0 + [char]0
-  #  $shortcut.Save()
-  #  $shortcutPath = $shortcut.FullName
-
-    # Modify the shortcut to run as administrator
-   # $shellApplication = New-Object -ComObject Shell.Application
-   # $folder = $shellApplication.NameSpace([System.IO.Path]::GetDirectoryName($startupFolder))
-   # $file = $folder.ParseName([System.IO.Path]::GetFileName($startupFolder))
-   # $verb = $file.Verbs() | Where-Object { $_.Name -eq "runas" }
-
-    #if ($verb) {
-        # Invoke the "runas" verb to set the shortcut to run as administrator
-     #   $verb.DoIt()
-    #}
-
-    #Write-Host "Shortcut created successfully in the Startup folder with elevated permissions."
-#} else {
- #   Write-Host "Shortcut already exists in the Startup folder."
-#}
-
-
-# Define the shortcut name
-$shortcutName = "win11init.lnk"
-
-# Define the path to the Desktop folder for the current user
-$desktopPath = [System.IO.Path]::Combine($env:USERPROFILE, 'Desktop')
-
-# Define the full path to the shortcut on the Desktop
-$shortcutSourcePath = [System.IO.Path]::Combine($desktopPath, $shortcutName)
-
-# Define the path to the Startup folder for the current user
-$startupFolderPath = [System.IO.Path]::Combine($env:APPDATA, 'Microsoft\Windows\Start Menu\Programs\Startup')
-
-# Define the destination path in the Startup folder
-$destinationPath = [System.IO.Path]::Combine($startupFolderPath, $shortcutName)
-
-# Check if the shortcut exists on the Desktop
-if (Test-Path -Path $shortcutSourcePath) {
-    # Check if the shortcut already exists in the Startup folder
-    if (-Not (Test-Path -Path $destinationPath)) {
-        # Copy the shortcut to the Startup folder
-        Copy-Item -Path $shortcutSourcePath -Destination $destinationPath
-        Write-Host "Shortcut copied to $destinationPath"
-    } else {
-        Write-Host "Shortcut already exists in the Startup folder. No action taken."
-    }
-} else {
-    Write-Host "Shortcut not found on the Desktop. No action taken."
-}
-
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
 Write-Host "Setting Timezone..."
@@ -203,7 +98,7 @@ if ($testIP -notlike "*10.158.72.*")
 #choco uninstall openssh
 #choco install openssh --params "/ALLUSERS"
 
-Write-Host "Installing OpenSSH-server"
+#Write-Host "Installing OpenSSH-server"
 #Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
 #Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 #Start-Service sshd
