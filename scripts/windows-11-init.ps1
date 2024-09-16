@@ -1,5 +1,4 @@
-# Clear screen
-Clear-Host
+Set-ExecutionPolicy Bypass -Scope Process -Force
 
 # Prompt the user for a choice
 Write-Host "Which profile would you like to install?" -ForegroundColor Green
