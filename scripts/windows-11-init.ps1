@@ -1,3 +1,6 @@
+# Clear screen
+Clear-Host
+
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
 # Prompt the user for a choice
