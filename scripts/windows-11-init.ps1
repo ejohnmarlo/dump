@@ -9,7 +9,7 @@ Write-Host "(1) HP-Zbook laptop"
 Write-Host "(2) Dell"
 Write-Host "(s) Shutdown without update"
 Write-Host "(r) Restart without update"
-$choice = Read-Host -Prompt "Enter choice: "
+$choice = Read-Host -Prompt "Enter choice"
 
 # Execute the corresponding profile script based on user choice
 switch ($choice.ToLower()) {
