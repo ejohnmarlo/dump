@@ -18,7 +18,7 @@ Write-Host "Allow Global confirmation when installing and updating packages..."
 choco feature enable -n=allowGlobalConfirmation
 
 Write-Host "Changing admin password..."
-net user admin ++adminzbook2023!!
+net user admin ++admindell2024!!
 
 Write-Host "Add administrator permission..."
 net localgroup administrators admin /add
