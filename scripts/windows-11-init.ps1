@@ -10,7 +10,7 @@ $choice = Read-Host -Prompt "Enter choice [a/b]"
 switch ($choice.ToLower()) {
     'a' {
         Write-Host "Executing HP-Zbook profile (profile1.ps1)..." -ForegroundColor Yellow
-        powershell -C "irm https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/ComputingLaboratory.ps1 | iex
+        powershell -C "irm https://raw.githubusercontent.com/ejohnmarlo/dump/main/scripts/ComputingLaboratory.ps1 | iex"
         # Call the profile1 script
     }
     'b' {
