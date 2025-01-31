@@ -26,6 +26,9 @@ net localgroup administrators admin /add
 Write-Host "Creating user student..." 
 net user student studentpass /add /expires:never
 
+Write-Host "Set user student password to never expire..." 
+net user student studentpass /expires:never
+
 Write-Host "Add administrator permission..." 
 net localgroup administrators student /add
 
